@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
-import {Divider, Grid, Paper} from '@material-ui/core'
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PropTypes from 'prop-types'
+import {Divider, Grid, Dialog, DialogTitle} from '@material-ui/core'
+import LocationOnIcon from '@material-ui/icons/LocationOn'
 import PhoneIcon from '@material-ui/icons/Phone'
 
 import Footer1 from '../assets/images/footer1.png'
@@ -108,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
     },
     griditem: {
         textAlign: 'center',
+        cursor: 'pointer',
     },
     gridtext: {
         margin: 0,
@@ -130,9 +132,40 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const FormDialog = (props) => {
+    const classes = useStyles();
+    const { onClose, open } = props;
+
+    const handleClose = () => {
+        onClose();
+    };
+
+    return (
+        <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
+          <DialogTitle id="dialog-title">Booking Mobil</DialogTitle>
+          
+        </Dialog>
+      );
+}
+
+FormDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+};
+
 const Footer = ({id}) => {
 
     const classes = useStyles();
+
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     let data = []
     let menupop = <></>
@@ -166,7 +199,7 @@ const Footer = ({id}) => {
         menupop = <div className={classes.footerpop}>
                     <Grid container className={classes.grid}>
                         <Grid item xs={6} className={classes.griditem}>
-                            <p className={classes.booking}>Booking Mobil</p>
+                            <p className={classes.booking} onClick={handleClickOpen}>Booking Mobil</p>
                         </Grid>
                         <Grid item xs={3} className={classes.griditem}>
                             <img src={Menu1}/>
@@ -218,6 +251,7 @@ const Footer = ({id}) => {
             All rights reserved.
         </div>
         {menupop}
+        <FormDialog open={open} onClose={handleClose} />
         </React.Fragment>
     );
 }
