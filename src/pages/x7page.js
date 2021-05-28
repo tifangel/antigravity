@@ -5,11 +5,16 @@ import Footer from '../components/footer'
 import CarouselCont from '../components/carousel'
 
 import X7 from '../assets/images/x7.png'
+import TabsX7 from '../components/x7/tabs'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: 0,
         backgroundColor: '#163C80',
+    },
+    root2: {
+        padding: 0,
+        backgroundColor: '#FFFFFF',
     },
     title: {
         fontSize: '13px',
@@ -78,7 +83,7 @@ const X7Page = () => {
                     value={value}
                     onChange={handleChange}
                     // variant="fullWidth"
-                    centered
+                    // centered
                     TabIndicatorProps={{
                         style: {
                             backgroundColor: '#163C80',
@@ -101,7 +106,12 @@ const X7Page = () => {
                     
                 </div>
 
+            </Container >
+
+            <Container maxWidth="xs" className={classes.root2}>
+                <TabsX7/>
             </Container>
+
             <Footer id={3}/>
         </React.Fragment>
     );
